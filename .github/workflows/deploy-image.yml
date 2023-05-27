@@ -40,4 +40,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            "ICAL_URL=not_valid_ical_url"
+            "ICAL_URL=${{ secrets.ICAL_URL }}"
