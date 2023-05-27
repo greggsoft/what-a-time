@@ -39,5 +39,5 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          secrets: |
-            "ICAL_URL=not_valid_ical_url"
+          build-args:
+            ICAL_URL: not_valid_ical_url
