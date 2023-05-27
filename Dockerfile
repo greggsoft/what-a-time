@@ -1,5 +1,7 @@
 FROM node:16-slim
 
+ARG ICAL_URL
+
 LABEL org.opencontainers.image.source=https://github.com/greggsoft/what-a-time
 LABEL org.opencontainers.image.description="What A Time"
 LABEL org.opencontainers.image.licenses=UNLICENSED
