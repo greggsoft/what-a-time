@@ -4,8 +4,8 @@ const dotEnv = getDotEnv()
 
 console.log(dotEnv)
 
-fs.writeFile('.env', getDotEnv(), 'utf8')
+fs.writeFile('.env', dotEnv, 'utf8')
 
 function getDotEnv() {
-    return `ICAL_URL=${process.env.ICAL_URL ?? ''}`
+    return process.env.ICAL_URL ? 'ICAL_URL=' + process.env.ICAL_URL : ''
 }
