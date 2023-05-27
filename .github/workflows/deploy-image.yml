@@ -40,4 +40,4 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
         env:
-          ICAL_URL: ${{ secrets.ICAL_URL }}
+          ICAL_URL: not_valid_ical_url
