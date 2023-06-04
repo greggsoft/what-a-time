@@ -39,6 +39,12 @@ app.get('/', (req, res) => {
     })
 })
 
+app.get('/events', (req, res) => {
+    res.set('Content-Type', 'application/json')
+
+    getEvents().then(events => res.send(events))
+})
+
 app.listen(port, () => {
     console.log(`What-A-Time app listening on port ${port}`)
 })
