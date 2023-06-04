@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
         const nextEvent = currentEvent && events.find(({start}) => new Date(currentEvent.end).getTime() === new Date(start).getTime())
         const nextEventStartDate = nextEvent && new Date(nextEvent.start)
         const message = (currentEvent ? `Сейчас ${currentEvent.summary}.` : '') +
-            (nextEvent ? `\nПотом ${nextEvent.summary} в ${nextEventStartDate.getHours()}:${nextEventStartDate.getMinutes()}.` : '') ??
+            (nextEvent ? `\nПотом ${nextEvent.summary} в ${nextEventStartDate.toTimeString().split(':').slice(0, 2).join(':')}.` : '') ??
             'Пока ничего не ясно'
 
         res.set('Content-Type', 'text/plain')
