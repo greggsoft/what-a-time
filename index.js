@@ -27,11 +27,10 @@ app.get('/', (req, res) => {
     const now = new Date()
 
     getEvents().then(events => {
-        const currentEvent = events.find(({start, end}) => (new Date(start)) <= now && (new Date(end)) >= now)
-        const nextEvent = currentEvent && events.find(({start}) => new Date(currentEvent.end).getTime() === new Date(start).getTime())
-        const nextEventStartDate = nextEvent && new Date(nextEvent.start)
+        const currentEvent = events.find(({start, end}) => start <= now && end >= now)
+        const nextEvent = currentEvent && events.find(({start}) => currentEvent.end.getTime() === start.getTime())
         const message = (currentEvent ? `Сейчас ${currentEvent.summary}.` : '') +
-            (nextEvent ? `\nПотом ${nextEvent.summary} в ${nextEventStartDate.toTimeString().split(':').slice(0, 2).join(':')}.` : '') ??
+            (nextEvent ? `\nПотом ${nextEvent.summary} в ${getTimeWithOffset(nextEvent.start, 300)}.` : '') ??
             'Пока ничего не ясно'
 
         res.set('Content-Type', 'text/plain')
@@ -48,3 +47,14 @@ app.get('/events', (req, res) => {
 app.listen(port, () => {
     console.log(`What-A-Time app listening on port ${port}`)
 })
+
+function getTimeWithOffset(date, offset) {
+    const localOffset = date.getTimezoneOffset()
+    const hours = date.getHours()
+    const minutes = date.getMinutes() + hours * 60
+    const offsetMinutes = minutes + offset + localOffset
+    const resultMinutes = offsetMinutes % 60
+    const resultHours = Math.floor(offsetMinutes / 60)
+
+    return `${resultHours < 10 ? '0' : ''}${resultHours}:${resultMinutes < 10 ? '0' : ''}${resultMinutes}`
+}
