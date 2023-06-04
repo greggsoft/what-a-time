@@ -28,12 +28,14 @@ app.get('/', (req, res) => {
 
     getEvents().then(events => {
         const currentEvent = events.find(({start, end}) => (new Date(start)) <= now && (new Date(end)) >= now)
+        const nextEvent = currentEvent && events.find(({start}) => new Date(currentEvent.end).getTime() === new Date(start).getTime())
+        const nextEventStartDate = nextEvent && new Date(nextEvent.start)
+        const message = (currentEvent ? `Сейчас ${currentEvent.summary}.` : '') +
+            (nextEvent ? `\nПотом ${nextEvent.summary} в ${nextEventStartDate.getHours()}:${nextEventStartDate.getMinutes()}.` : '') ??
+            'Пока ничего не ясно'
 
-        if (currentEvent) {
-            res.send(`Сейчас ${currentEvent.summary}`)
-        } else {
-            res.send(`Пока ничего не ясно`)
-        }
+        res.set('Content-Type', 'text/plain')
+        res.send(message)
     })
 })
 
