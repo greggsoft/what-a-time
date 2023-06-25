@@ -1,0 +1,10 @@
+{
+  "id": "io.github.greggsoft.what-a-time",
+  "version": "0.0.4",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "What A Time",
+  "icon": "icon.png",
+  "largeIcon": "icon.png"
+}
